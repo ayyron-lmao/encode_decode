@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Base64 Encoder and Decoder</h2>
+
+<form>
+    <textarea rows="5" cols="50" id="inputData" name="inputData">Enter Text to Encode/Decode</textarea>
+  <br><br>
+  <input type="button" value="encode" onclick="encode()">
+  <input type="button" value="decode" onclick="decode()">
+</form> 
+
+<p style="border: 2px solid black" id='outputData'>If you click the "Submit" button, the form-data will be sent to a page called "/action_page.php".</p>
+
+</body>
+<script>
+    function load(url, data, callback) {
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+            callback(xhr.response);
+            }
+        }
+
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.send(JSON.stringify(data));
+    }
+
+    function encode() {
+        load('/encode', {data: document.getElementById('inputData').value}, (data) => {
+            document.getElementById('outputData').textContent = JSON.parse(data).payload;
+        })
+    }
+
+    function decode() {
+        load('/decode', {data: document.getElementById('inputData').value}, (data) => {
+            document.getElementById('outputData').textContent = JSON.parse(data).payload;
+        })
+    }
+</script>
+</html>
