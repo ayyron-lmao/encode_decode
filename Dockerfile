@@ -8,6 +8,8 @@ RUN apt-get update -yqq; apt-get install -yqq curl
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -yqq nodejs
 
+RUN npm i -g mocha
+
 RUN mkdir -p webapp
 
 EXPOSE 4567
